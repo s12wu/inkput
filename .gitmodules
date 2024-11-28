@@ -1,0 +1,3 @@
+[submodule "OnlineHTR"]
+	path = OnlineHTR
+	url = https://github.com/s12wu/OnlineHTR
