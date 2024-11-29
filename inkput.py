@@ -1,7 +1,8 @@
+#!/usr/bin/env python
+
 from tkinter import Tk
-from tkinter import Button
-from tkinter import Text
-from tkinter import Label
+from tkinter import Button, Text, Label
+from tkinter import messagebox
 from tkinter import N, W, E, S
 from pathlib import Path
 import argparse
@@ -14,9 +15,7 @@ from OnlineHTR.src.models.carbune_module import LitModule1
 from OnlineHTR.src.utils.io import load_alphabet
 from OnlineHTR.src.utils.io import get_best_checkpoint_path
 from OnlineHTR.src.data.tokenisers import AlphabetMapper
-#from src.data.acquisition import plot_strokes
 from OnlineHTR.src.data.acquisition import reset_strokes
-#from src.data.acquisition import store_strokes
 from OnlineHTR.src.data.acquisition import Sketchpad
 from OnlineHTR.src.data.acquisition import predict
 
@@ -34,6 +33,21 @@ def parse_cli_args() -> dict:
     
     return vars(args)
 
+def test_ydotool():
+    """Check if ydotool is available and can find its daemon"""
+    try:
+        ret = subprocess.run(['ydotool', 'type', ''],
+                                      env=dict(os.environ, YDOTOOL_SOCKET="/tmp/.ydotool_socket"),
+                                      stdout=subprocess.PIPE,
+                                      stderr=subprocess.STDOUT)
+    except FileNotFoundError:
+        return False, "ydotool not found."
+    if ret.returncode:
+        return False, "ydotool returned: " + ret.stdout.decode()    
+    else:
+        return True, ""
+ 
+    
 
 def type_key(code):
     subprocess.call(['ydotool', 'key', f'{code}:1', f'{code}:0'], env=dict(os.environ, YDOTOOL_SOCKET="/tmp/.ydotool_socket"))
@@ -168,7 +182,13 @@ class App(Tk):
 if __name__ == '__main__':
 
     args = parse_cli_args()
+    
+    # check if ydotool is available
+    available, text = test_ydotool()
+    if not available:
+        messagebox.showerror("ydotool error", text)
 
-    app=App(args)
-    app.mainloop()
+    else:
+        app=App(args)
+        app.mainloop()
     
