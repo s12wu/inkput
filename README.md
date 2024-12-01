@@ -28,7 +28,9 @@ This is still a very early quick and dirty test.
  - Run a spell checker?
  - ...
 
-
+## known problems
+ - buttons ignore the 2x scaling on first run after reboot, subsequent runs are fine
+ - sometimes the pen keeps drawing even if not pressing on the surface
 
 ## installation
 The original project recommended the use of conda, but I had success just using the system Python 3.12 (trixie repos November 2024) and a venv.
@@ -86,4 +88,13 @@ cd to the repo folder
 source venv/bin/activate # if not done yet
 python inkput.py
 ```
+
+It takes about 30 seconds to start until the window appears.
+
+## menu item
+`start_inkput.sh` changes to the directory, activates the venv and calls `inkput.py`.
+
+Edit it to cd to the directory you cloned the repository to.
+
+Install the menu editor (`sudo apt install alacarte`). Create a new item, and browse for the start_inkput.sh script.
 
