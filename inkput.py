@@ -3,7 +3,7 @@
 from tkinter import Tk
 from tkinter import Button, Text, Label
 from tkinter import messagebox
-from tkinter import N, W, E, S
+from tkinter import N, W, E, S, END
 from pathlib import Path
 import argparse
 
@@ -54,7 +54,11 @@ def type_key(code):
 
 
 def run_and_type(global_strokes, prediction_field, alphabet, model, decoder, alphabet_mapper):
-    text = predict(global_strokes, prediction_field, alphabet, model, decoder, alphabet_mapper)
+    text = predict(global_strokes, alphabet, model, decoder, alphabet_mapper)
+
+    prediction_field.delete(1.0, END)
+    prediction_field.insert(1.0, text, 'big')
+
     print(text)
     
     # quick and dirty translation from german QWERTZ to QWERTY
