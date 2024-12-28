@@ -98,3 +98,18 @@ Edit it to cd to the directory you cloned the repository to.
 
 Install the menu editor (`sudo apt install alacarte`). Create a new item, and browse for the start_inkput.sh script.
 
+# Integration into the on screen keyboard (GNOME only)
+I tried integrating this into a fork of gjs-osk. The Idea is: instead of having this window floating around, the OSK by design already hides and shows as needed.
+
+To use this: Install the on screen keyboad from [here](https://github.com/s12wu/gjs-osk).
+
+Activathe the venv and run `inkput_daemon.py`.
+
+Installation of ydotool is **not** necessary, since the gnome extension handles the input stuff.
+
+## closing thoughts
+In the last few weeks, I haven't found myself using handwriting input at all.
+I basically need keyboard input for two scenarios:
+- For example, when quickly typing in a web url or search term, the [vanilla gjs-osk](https://github.com/Vishram1123/gjs-osk) is already miles ahead of the default gnome keyboard. Handwriting is about as fast (in the case of the Tkinter UI) or much slower (in the case of the OSK integration, just watch the video over there) and quickly becomes annoying due to recognition errors.
+- For writing longer texts, e.g. an email, I simply take out a Bluetooth keyboard, which is much faster and more precise.
+
